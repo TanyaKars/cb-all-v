@@ -49,6 +49,7 @@ export default defineConfig({
         ...envConfig
       }
 
+      // just log to use in hooks and configs for better debugging
       on('task', {
         log(message) {
           console.log(message)
@@ -56,6 +57,24 @@ export default defineConfig({
         }
       })
 
+      // This will save data from the tests to use it in another tests & specs.
+      // Also, it  can pass the variables between the origins
+      // original impl here https://www.youtube.com/watch?v=wJ3VyGEDHA0 allows to save one variable
+      // this impl allows to add variable to the obj and reuse task multiple times
+      let savedData = {}
+      on('task', {
+        save(data) {
+          console.log('saved data', data)
+          savedData = { ...savedData, ...data }
+          return null
+        },
+        load() {
+          console.log('returning data', savedData)
+          return savedData || null
+        }
+      })
+
+      // Lunches browser with open devtools when open ot run used for headless & headed modes
       on('before:browser:launch', (browser: Cypress.Browser, launchOptions) => {
         if (config.env?.devtools) {
           if (browser.family === 'chromium' && browser.name !== 'electron') {

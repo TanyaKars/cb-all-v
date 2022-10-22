@@ -4,7 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cy:open:v1": "cypress open --browser chrome --env configFile='v_1' --config-file cypress.v_1.config.ts",
+    "cy:open:v2": "cypress open --browser chrome --env configFile='v_2' --config-file cypress.v_2.config.ts",
+    "cy:open:v3": "cypress open --browser chrome --env configFile='v_2' --config-file cypress.v_3.config.ts",
+    "cy:open:v4": "cypress open --browser chrome --env configFile='v_2' --config-file cypress.v_4.config.ts",
+    "cy:open:v5": "cypress open --browser chrome --env configFile='v_2' --config-file cypress.v_5.config.ts",
+    "cy:run:v1": "cypress run --headless --browser chrome --env configFile='v_1' --config-file cypress.v_1.config.ts",
+    "cy:run:v2": "cypress run --headless --browser chrome --env configFile='v_2' --config-file cypress.v_2.config.ts",
+    "cy:run:v3": "cypress run --headless --browser chrome --env configFile='v_2' --config-file cypress.v_3.config.ts",
+    "cy:run:v4": "cypress run --headless --browser chrome --env configFile='v_2' --config-file cypress.v_4.config.ts",
+    "cy:run:v5": "cypress run --headless --browser chrome --env configFile='v_2' --config-file cypress.v_5.config.ts"
   },
   "repository": {
     "type": "git",

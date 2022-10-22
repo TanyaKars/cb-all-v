@@ -2,6 +2,7 @@ import { defineConfig } from 'cypress'
 import globalConfig from './cypress.config'
 
 export default defineConfig({
+    // this config will be called only when used
     ...globalConfig,
     e2e: {
         ...globalConfig.e2e,
