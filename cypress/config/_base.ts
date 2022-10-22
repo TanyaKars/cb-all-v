@@ -1,4 +1,5 @@
 export const baseEnvData = {
+    email: 'https://clientbase.us/email',
     user: {
         id: '',
         firstName: '',
