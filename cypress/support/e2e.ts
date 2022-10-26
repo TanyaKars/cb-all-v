@@ -4,6 +4,7 @@ import './commands'
 before(() => {
     cy.clearCookies()
     cy.clearLocalStorage()
+    cy.visit('/')
 })
 
 declare global {
