@@ -4,6 +4,11 @@ import {loginLabels} from "../../fixtures/login";
 import {registerLabels} from "../../fixtures/register";
 
 describe('Layout', () => {
+    before(() => {
+        cy.visit('/')
+        cy.checkA11y()
+    })
+
     it('all elements are visible', () => {
         cy.get(sharedLocators.logo).should('contain.text', sharedlabels.logo)
         cy.get(homeLocators.header).should('have.text', homeData.header)
