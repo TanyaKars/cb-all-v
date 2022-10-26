@@ -1,0 +1,30 @@
+name: clientBase v1
+on:
+  push
+  workflow_dispatch
+jobs:
+  test:
+    name: run test
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node14.17.6-chrome100-ff98
+    strategy:
+      fail-fast: false
+    defaults:
+      run:
+        working-directory: cb
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cypress run
+          uses: cypress-io/github-action@v4
+          with:
+            browser: chrome
+            working-directory: cb
+            spec: cypress/e2e/_smoke/**.cy.ts
+            config-file: cypress.v1.config.ts
+      - name: Store screenshot artifacts
+          uses: actions/upload-artifact@v3
+          if: failure()
+          with:
+            name: e2e-screenshots
+            path: ./e2e/cypress/results
