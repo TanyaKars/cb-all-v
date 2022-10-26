@@ -1,5 +1,11 @@
 import './commands'
 
+// here we can declare before(each) & after(each) globally and not duplicate it in the specs
+before(() => {
+    cy.clearCookies()
+    cy.clearLocalStorage()
+})
+
 declare global {
     namespace Cypress {
         interface Chainable {
