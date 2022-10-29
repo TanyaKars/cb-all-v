@@ -1,5 +1,6 @@
 import {defaultAxeRules} from "./axe-config";
 
+// the best tutorial for this axe configuration https://www.youtube.com/watch?v=TaBhwaOy1XI
 const severityIndicators = {
     minor: '⚪',
     moderate: '🟡',

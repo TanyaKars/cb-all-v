@@ -6,7 +6,6 @@ import {registerLabels} from "../../fixtures/register";
 describe('Layout', () => {
     before(() => {
         cy.visit('/')
-        // cy.checkA11y() TODO fix axe
     })
 
     it('all elements are visible', () => {
@@ -16,6 +15,7 @@ describe('Layout', () => {
         cy.get(sharedLocators.buttons.login).should('have.text', homeData.login)
         cy.get(sharedLocators.buttons.register).should('have.text', homeData.register)
         cy.get(sharedLocators.buttons.primary).should('have.text', homeData.startNow)
+        // cy.checkA11y()  // TODO fix axe
     })
 })
 
