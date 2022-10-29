@@ -22,7 +22,7 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           working-directory: ./
-          spec: cypress/e2e/v-1/${{ matrix.containers }}.cy.ts
+          spec: cypress/e2e/v_1/${{ matrix.containers }}.cy.ts
           config-file: cypress.v1.config.ts
           env: configFile=v1
         env:
