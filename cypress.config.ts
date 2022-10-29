@@ -4,7 +4,7 @@ import { config } from 'dotenv'
 config()
 
 function getConfigurationByFile(file: string) {
-  return require(`../cb/cypress/config/${file}.ts`)
+  return require(`./cypress/config/${file}.ts`)
 }
 
 export default defineConfig({
