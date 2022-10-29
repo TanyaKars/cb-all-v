@@ -1,6 +1,5 @@
 name: clientBase v1
 on:
-  push
   workflow_dispatch:
 jobs:
   runs-on: ubuntu-latest
