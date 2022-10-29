@@ -3,30 +3,27 @@ on:
   workflow_dispatch:
 jobs:
   version1:
-    name: RUN TESTS FOR V1
+    name: RUN TESTS - V1
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
+        # run copies of the current job in parallel
         containers: [ home, login ]
     defaults:
       run:
-        working-directory: ./
+        working-directory: cb
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        # Install NPM dependencies
+        # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          working-directory: ./
+          working-directory: cb
           spec: cypress/e2e/v-1/${{ matrix.containers }}.cy.ts
           config-file: cypress.v1.config.ts
           env: configFile=v1
         env:
           - TEST_USER_1: ${{ secrets.P_TEST_USER_1 }}
-      - name: Store screenshot artifacts
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: e2e-screenshots
-          path: ./cypress/results/
