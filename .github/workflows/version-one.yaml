@@ -2,8 +2,6 @@ name: clientBase v1
 on:
   push:
   workflow_dispatch:
-  env:
-    TEST_USER_1: ${{ secrets.P_TEST_USER_1 }}
 jobs:
   version1:
     name: RUN TESTS - V1
@@ -28,6 +26,8 @@ jobs:
           spec: cypress/e2e/v_1/${{ matrix.containers }}.cy.ts
           config-file: cypress.v1.config.ts
           env: configFile=v1
+        env:
+          TEST_USER_1: ${{ secrets.P_TEST_USER_1 }}
       - name: Store screenshot artifacts
         uses: actions/upload-artifact@v3
         if: failure()
