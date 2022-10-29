@@ -1,6 +1,6 @@
 name: clientBase v1
 on:
-  push:
+#  push:
   workflow_dispatch:
 jobs:
   version1:
