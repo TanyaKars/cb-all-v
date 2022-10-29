@@ -17,6 +17,8 @@ export default defineConfig({
   },
   chromeWebSecurity: false,
   watchForFileChanges: false,
+  screenshotsFolder: 'cypress/results',
+  downloadsFolder: 'cypress/downloads',
   e2e: {
     experimentalStudio: true,
     env: {
