@@ -1,7 +1,6 @@
 name: clientBase v1
 on:
-   push:
-   branches: main
+  push:
   workflow_dispatch:
   env:
     TEST_USER_1: ${{ secrets.P_TEST_USER_1 }}
