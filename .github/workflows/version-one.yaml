@@ -21,8 +21,8 @@ jobs:
           config-file: cypress.v1.config.ts
           env: configFile=v1
       - name: Store screenshot artifacts
-          uses: actions/upload-artifact@v3
-          if: failure()
-          with:
-            name: e2e-screenshots
-            path: ./cypress/results/
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: e2e-screenshots
+          path: ./cypress/results/
