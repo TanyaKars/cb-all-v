@@ -1,6 +1,8 @@
 name: clientBase v1
 on:
 #  push: # tests will run after each push
+# schedule:
+#   - cron: "0 7,19 * * *" # will run at 12 am & 12 pm PST
   workflow_dispatch: # tests will run from GH on demand
 jobs:
   version1:
