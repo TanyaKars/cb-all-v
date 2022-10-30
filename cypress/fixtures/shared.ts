@@ -13,7 +13,8 @@ export const sharedLocators = {
         settings: '[data-qa="settings"]',
         logout: '[data-qa="logout"]'
     },
-    popUp: '.ant-notification-notice-message'
+    popUp: '.ant-notification-notice-message',
+    error: '.ant-form-item-explain-error'
 }
 
 export const sharedlabels = {

@@ -9,15 +9,11 @@ const postcondition = () => {
 }
 
 describe('should verify login', () => {
-    before(() => {
+    beforeEach(() => {
         cy.visit('/user/login')
     })
 
-    it.only('Should login with valid credentials', () => {
-        console.log(user)
-        console.log(Cypress.env)
-        console.log(Cypress.env)
-
+    it('Should login with valid credentials', () => {
         cy.get(loginLocators.login).type(user.username)
         cy.get(loginLocators.password).type(user.password)
         cy.get(sharedLocators.buttons.primary).click()
@@ -36,17 +32,20 @@ describe('should verify login', () => {
         cy.get(loginLocators.login).type(user.username)
         cy.get(loginLocators.password).type('неВерныйПароль!23')
         cy.get(sharedLocators.buttons.primary).click()
-        cy.get(sharedLocators.popUp).should('be.visible')    })
+        cy.get(sharedLocators.popUp).should('be.visible')
+    })
 
     it('Should not login with invalid credentials', () => {
         cy.get(loginLocators.login).type('b!us*@ner.com')
         cy.get(loginLocators.password).type('неВерныйПароль!23')
         cy.get(sharedLocators.buttons.primary).click()
-        cy.get(sharedLocators.popUp).should('be.visible')    })
+        cy.get(sharedLocators.popUp).should('be.visible')
+    })
 
     it('Should not login with mixed credentials', () => {
         cy.get(loginLocators.login).type(user.password)
         cy.get(loginLocators.password).type(user.username)
-        cy.get(sharedLocators.buttons.primary).click()
-        cy.get(sharedLocators.popUp).should('be.visible')    })
+        cy.get(sharedLocators.buttons.primary).should('be.disabled')
+        cy.get(sharedLocators.error).should('be.visible')
+    })
 })

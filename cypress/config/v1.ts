@@ -1,9 +1,9 @@
 import {baseEnvData} from "./_base"
 
 export default {
+    baseUrl: 'https://clientbase.us/v1',
+    api_url: 'https://clientbase-server.herokuapp.com/v1',
     env: {
-        baseUrl: 'https://clientbase.us/v1',
-        api_url: 'https://clientbase-server.herokuapp.com/v1',
         ...baseEnvData
     }
 }
