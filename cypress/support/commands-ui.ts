@@ -1,6 +1,6 @@
 import {defaultAxeRules} from "./axe-config";
 import {sharedLocators} from "../fixtures/shared";
-import {loginLabels} from "../fixtures/login";
+import {loginLabels, loginLocators} from "../fixtures/login";
 
 // the best tutorial for this axe configuration https://www.youtube.com/watch?v=TaBhwaOy1XI
 const severityIndicators = {
@@ -50,6 +50,12 @@ Cypress.Commands.add('checkPageAlly', () => {
     cy.checkA11y(null, { rules: defaultAxeRules }, callback, {
         skipFailures: true
     })
+})
+
+Cypress.Commands.add('login', (username, password) => {
+    cy.get(loginLocators.login).type(username)
+    cy.get(loginLocators.password).type(password)
+    cy.get(sharedLocators.buttons.primary).click()
 })
 
 Cypress.Commands.add('logout', () => {

@@ -21,6 +21,9 @@ declare global {
             addBoard: Chainable<Element>
             checkPageAlly: () => Cypress.Chainable<void>
             logout: () => Cypress.Chainable<void>
+            login: (username, Password) => Cypress.Chainable<void>
+            loginAPI: (username, Password, loginUrl) => Cypress.Chainable<void>
+            getToken: () => Cypress.Chainable<any>
         }
     }
 }

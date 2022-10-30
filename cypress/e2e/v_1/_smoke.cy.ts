@@ -7,6 +7,7 @@ const postcondition = () => {
     cy.logout()
     cy.visit('/user/login')
 }
+let token
 
 describe('should verify login', () => {
     beforeEach(() => {
@@ -47,5 +48,19 @@ describe('should verify login', () => {
         cy.get(loginLocators.password).type(user.username)
         cy.get(sharedLocators.buttons.primary).should('be.disabled')
         cy.get(sharedLocators.error).should('be.visible')
+    })
+})
+
+describe.only('Should verify client', () => {
+    before(() => {
+        cy.visit('/user/login')
+        cy.login(user.username, user.password)
+        cy.getToken().then((access_token) => {
+            token = access_token
+        })
+    })
+
+    it('test', () => {
+        cy.get(sharedLocators.buttons.primary)
     })
 })
