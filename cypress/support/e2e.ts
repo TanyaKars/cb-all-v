@@ -12,6 +12,7 @@ Cypress.on('uncaught:exception', (_err, _runnable) => {
 before(() => {
     cy.clearCookies()
     cy.clearLocalStorage()
+    cy.visit('/')
 })
 
 declare global {
@@ -19,6 +20,7 @@ declare global {
         interface Chainable {
             addBoard: Chainable<Element>
             checkPageAlly: () => Cypress.Chainable<void>
+            logout: () => Cypress.Chainable<void>
         }
     }
 }
