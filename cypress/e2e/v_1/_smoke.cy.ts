@@ -2,6 +2,7 @@ import {loginLocators} from "../../fixtures/login";
 import {sharedLocators} from "../../fixtures/shared";
 
 const { user } = Cypress.env()
+
 const postcondition = () => {
     cy.logout()
     cy.visit('/user/login')
@@ -12,7 +13,11 @@ describe('should verify login', () => {
         cy.visit('/user/login')
     })
 
-    it('Should login with valid credentials', () => {
+    it.only('Should login with valid credentials', () => {
+        console.log(user)
+        console.log(Cypress.env)
+        console.log(Cypress.env)
+
         cy.get(loginLocators.login).type(user.username)
         cy.get(loginLocators.password).type(user.password)
         cy.get(sharedLocators.buttons.primary).click()
