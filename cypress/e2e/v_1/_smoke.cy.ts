@@ -51,7 +51,7 @@ describe('should verify login', () => {
     })
 })
 
-describe.only('Should verify client', () => {
+describe('Should verify client', () => {
     before(() => {
         cy.visit('/user/login')
         cy.login(user.username, user.password)
