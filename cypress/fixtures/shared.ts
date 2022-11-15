@@ -2,6 +2,7 @@ export const sharedLocators = {
     logo: '.text-black',
     navBarItem: '.me-2',
     header: 'h1',
+    drawerHeader: '.ant-drawer-title',
     buttons: {
         login: '[data-qa="login"]',
         register: '[data-qa="register"]',
@@ -14,7 +15,20 @@ export const sharedLocators = {
         logout: '[data-qa="logout"]'
     },
     popUp: '.ant-notification-notice-message',
-    error: '.ant-form-item-explain-error'
+    error: '.ant-form-item-explain-error',
+    xButton: '[data-icon="close"]',
+    drawerForm: '.ant-form-vertical',
+    tableRow: '.ant-table-row',
+    td: 'td',
+    actions: '.actions',
+    penIcon: '.edit-pen-icon',
+    editDeletTrigger: '.ant-dropdown-trigger',
+    editOption: '[data-menu-id$="-edit"]',
+    deleteOption: '[data-menu-id$="-delete"]',
+    deleteModal: {
+        cancelButton: '.ant-btn-default',
+        okButton: '.ant-btn-dangerous'
+    }
 }
 
 export const sharedlabels = {

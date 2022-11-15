@@ -1,5 +1,6 @@
 import {loginLocators} from "../../fixtures/login";
 import {sharedLocators} from "../../fixtures/shared";
+import {clientData, clientLocators} from "../../fixtures/client";
 
 const { user } = Cypress.env()
 
@@ -8,6 +9,7 @@ const postcondition = () => {
     cy.visit('/user/login')
 }
 let token
+let clientId
 
 describe('should verify login', () => {
     beforeEach(() => {
@@ -51,7 +53,7 @@ describe('should verify login', () => {
     })
 })
 
-describe('Should verify client', () => {
+describe.only('Should verify client', () => {
     before(() => {
         cy.visit('/user/login')
         cy.login(user.username, user.password)
@@ -60,7 +62,55 @@ describe('Should verify client', () => {
         })
     })
 
-    it('test', () => {
-        cy.get(sharedLocators.buttons.primary)
+    it('User should be able to create client', () => {
+        cy.wait(500)
+        cy.get(sharedLocators.buttons.primary).click()
+        cy.get(clientLocators.fields.Name).type(clientData.name)
+        cy.get(clientLocators.fields.Phone).type(clientData.phone)
+        cy.intercept('POST','**/client').as('postClient')
+        cy.get(sharedLocators.drawerForm)
+            .find(sharedLocators.buttons.primary)
+            .click({ force: true })
+        cy.wait('@postClient').then((res) => {
+            clientId =  res.response.body.payload
+            cy.get(sharedLocators.tableRow)
+                .contains(clientId)
+                .should("contain.text", clientData.name)
+                .and("contain.text", clientData.phone)
+        })
+    })
+
+    it('User should be able to edit client', () => {
+        cy.get(sharedLocators.tableRow)
+            .contains(clientData.name)
+            .parent(sharedLocators.td)
+            .siblings(sharedLocators.actions)
+            .find(sharedLocators.penIcon)
+            .click()
+        cy.get(clientLocators.fields.Email).type(clientData.email)
+        cy.get(clientLocators.fields.Notes).type(clientData.notes)
+        cy.get(sharedLocators.drawerForm)
+            .find(sharedLocators.buttons.primary)
+            .click({ force: true })
+        cy.get(sharedLocators.tableRow)
+            .contains(clientData.name)
+            .parent(sharedLocators.td)
+            .siblings()
+            .should("contain.text", clientData.email)
+            .and("contain.text", clientData.notes)
+    })
+
+    it('User should be able to delete client', () => {
+        cy.get(sharedLocators.tableRow)
+            .contains(clientData.name)
+            .parent(sharedLocators.td)
+            .siblings(sharedLocators.actions)
+            .find(sharedLocators.editDeletTrigger)
+            .click()
+        cy.get(sharedLocators.deleteOption).click()
+        cy.get(sharedLocators.deleteModal.okButton).click()
+        cy.get(sharedLocators.tableRow)
+            .first()
+            .should("not.contain.text", clientData.name)
     })
 })
