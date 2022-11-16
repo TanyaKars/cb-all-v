@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         # run copies of the current job in parallel
-        containers: [ home, login ] # the names must match the names of the specs to use it farther in spec path
+        containers: [ home, login, _smoke ] # the names must match the names of the specs to use it farther in spec path
     defaults:
       run:
         working-directory: ./
