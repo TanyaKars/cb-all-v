@@ -19,8 +19,8 @@ export const clientLabels =  {
 }
 
 export const clientData = {
-    name: 'Cypress Test Client',
-    phone: '1112223344',
-    email: 'cypresstest@gmail.com',
-    notes: 'Cypress test note 001!'
+    name: 'Axl Rose',
+    phone: '123123123',
+    email: 'axl@rose.com',
+    notes: 'Cypress test note for Axl Rose.'
 }
