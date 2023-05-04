@@ -49,7 +49,7 @@ describe('should verify login', () => {
         cy.get(loginLocators.login).type(user.password)
         cy.get(loginLocators.password).type(user.username)
         cy.get(sharedLocators.buttons.primary).should('be.disabled')
-        cy.get(sharedLocators.error).should('be.visible')
+        cy.get(sharedLocators.error).should('be.')
     })
 })
 
@@ -72,10 +72,13 @@ describe.only('Should verify client', () => {
             .find(sharedLocators.buttons.primary)
             .click({ force: true })
         cy.wait('@postClient').then((res) => {
+            cy.contains(clientData.name).should('be.visible')
             clientId =  res.response.body.payload
-            cy.get(sharedLocators.tableRow)
-                .contains(clientId)
+            cy.get(`[data-row-key="${clientId}"]`)
+                .find(sharedLocators.tableCell).eq(0)
                 .should("contain.text", clientData.name)
+            cy.get(`[data-row-key="${clientId}"]`)
+                .find(sharedLocators.tableCell).eq(1)
                 .and("contain.text", clientData.phone)
         })
     })
@@ -109,6 +112,7 @@ describe.only('Should verify client', () => {
             .click()
         cy.get(sharedLocators.deleteOption).click()
         cy.get(sharedLocators.deleteModal.okButton).click()
+        cy.wait(500)
         cy.get(sharedLocators.tableRow)
             .first()
             .should("not.contain.text", clientData.name)

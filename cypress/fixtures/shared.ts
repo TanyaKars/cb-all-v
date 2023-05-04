@@ -19,6 +19,7 @@ export const sharedLocators = {
     xButton: '[data-icon="close"]',
     drawerForm: '.ant-form-vertical',
     tableRow: '.ant-table-row',
+    tableCell: '.ant-table-cell',
     td: 'td',
     actions: '.actions',
     penIcon: '.edit-pen-icon',
