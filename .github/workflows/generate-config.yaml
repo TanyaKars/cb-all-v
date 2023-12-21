@@ -18,3 +18,4 @@ jobs:
           else
               echo "ref_type=feature" >> $GITHUB_OUTPUT
           fi
+          
