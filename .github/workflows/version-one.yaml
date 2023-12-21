@@ -1,10 +1,55 @@
 name: clientBase v1
 on:
-  push: # tests will run after each push
+  #push: # tests will run after each push
 # schedule:
 #   - cron: "0 7,19 * * *" # will run at 12 am & 12 pm PST
   workflow_dispatch: # tests will run from GH on demand
 jobs:
+  on-draft:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref_name != 'main' }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4 
+    - name: Download PR status
+      uses: dawidd6/action-download-artifact@v3
+      with:
+        workflow: check-pr-status.yaml
+        name: pr-status
+    - name: Read PR status
+      id: read
+      run: |
+        if [! -f pr-status.txt ]; then
+          echo "pr_status.txt not found"
+          exit 1
+        fi
+        PR_STATUS=$(cat pr-status.txt)
+        echo "::set-output name=pr_status::$PR_STATUS"
+    - name: Cancel the workflow if status is draft
+      if: ${{ steps.read.outputs.pr_status == 'draft' }}
+      continue-on-error: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO: ${{ github.repository }}
+        RUN_ID: ${{ github.run_id }}
+      run: |
+        echo "PR is draft"
+        echo "Cancelling the workflow run"
+        gh api \
+          --method POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          /repos/$REPO/actions/runs/$RUN_ID/cancel
+  call-check-enviroment:
+    name: Use local generate-config
+    uses: ./.github/workflows/generate-config.yaml
+  echo-env:
+    name: echo variable from reusable workflow
+    needs: call-check-enviroment
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo variable from reusable workflow
+        run: |
+          echo ${{ needs.call-check-enviroment.outputs.ref_type }}
   version1:
     name: RUN TESTS - V1
     runs-on: ubuntu-latest  # uses container

@@ -1,0 +1,20 @@
+name: Check environment
+on:
+  workflow_call:
+    outputs:
+      ref_type:
+        description: "The type of the ref"
+        value: ${{ jobs.check.outputs.ref_type }}
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      ref_type: ${{ steps.set_ref_type.outputs.ref_type }}
+    steps:
+      - id: set_ref_type
+        run: |
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+               echo "::set-output name=ref_type::main"
+          else
+              echo "::set-output name=ref_type::feature"
+          fi
